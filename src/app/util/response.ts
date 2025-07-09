@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 
-export type RouteHandler = (
-  request?: NextRequest,
+export type RouteResult<T> = NextResponse<T> | Promise<NextResponse<T>>;
+
+export type RouteHandler<T = unknown> = (
+  request: NextRequest,
   context?: { params: Promise<unknown> }
-) => NextResponse | Promise<NextResponse>;
+) => RouteResult<T>;
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _json = (json: unknown, _options?: unknown) => {
@@ -26,8 +28,11 @@ const internalErrorHandler = (err: unknown) => {
 };
 
 export const useInternalError =
-  (callback: RouteHandler, errorHandler = internalErrorHandler): RouteHandler =>
-  (request?: NextRequest, context?: { params: Promise<unknown> }) => {
+  <T>(
+    callback: RouteHandler<T>,
+    errorHandler = internalErrorHandler
+  ): RouteHandler<T> =>
+  (request, context?: { params: Promise<unknown> }) => {
     try {
       const result: unknown = callback(request, context);
       if (result instanceof NextResponse) return result;
