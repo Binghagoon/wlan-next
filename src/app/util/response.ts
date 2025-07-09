@@ -7,13 +7,12 @@ export type RouteHandler<T = unknown> = (
   context?: { params: Promise<unknown> }
 ) => RouteResult<T>;
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const _json = (json: unknown, _options?: unknown) => {
+const _json = (json: unknown, options?: { status?: number }) => {
   return new NextResponse(JSON.stringify(json), {
     headers: {
       "Content-Type": "application/json",
     },
-    status: 200,
+    status: options?.status ?? 200,
   });
 };
 
