@@ -1,5 +1,5 @@
-import wolService from "@/app/service/wol";
-import responseUtil, { RouteHandler } from "@/app/util/response";
+import wolService from "@/service/wol";
+import responseUtil, { RouteHandler } from "@/util/response";
 
 const _POST: RouteHandler = async (request) => {
   const body = await request.json();

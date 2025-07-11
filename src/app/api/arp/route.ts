@@ -1,5 +1,5 @@
-import arpService from "@/app/service/arp";
-import responseUtil from "@/app/util/response";
+import arpService from "@/service/arp";
+import responseUtil from "@/util/response";
 
 export const GET = async () => {
   const table = await arpService.get();

@@ -1,4 +1,4 @@
-import arpService from "@/app/service/arp";
+import arpService from "@/service/arp";
 import { Card } from "@mui/material";
 
 export default async function Page() {
